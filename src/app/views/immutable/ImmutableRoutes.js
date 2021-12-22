@@ -1,9 +1,9 @@
 import React, {lazy} from 'react'
 import Loadable from 'app/components/Loadable/Loadable';
-import Collection from "./Collection";
 
 const Marketplace = Loadable(lazy(() => import("./Marketplace")));
-const Inventory = Loadable(lazy(() => import("./Inventory")));
+const Collection = Loadable(lazy(() => import("./Collection")));
+const UserCollection = Loadable(lazy(() => import("./UserCollection")));
 
 
 const materialRoutes = [
@@ -12,12 +12,12 @@ const materialRoutes = [
 		element: <Marketplace/>,
 	},
 	{
-		path: '/imx/inventory',
-		element: <Inventory/>,
-	},
-	{
 		path: '/imx/collections/:address',
 		element: <Collection/>,
+	},
+	{
+		path: '/imx/inventory/:address',
+		element: <UserCollection/>,
 	},
 ]
 

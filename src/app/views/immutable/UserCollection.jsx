@@ -21,21 +21,24 @@ const Container = styled('div')(({theme}) => ({
 }))
 
 
-const Collection = () => {
+const UserCollection = () => {
+
 	const {address} = useParams()
 	const [assets, setAssets] = React.useState();
+
 	useEffect(() => {
 		if (!assets)
 			getCurrentPageData()
-	})
+	}, [])
 
 	const getCurrentPageData = () => {
 		getImXClient().then(c => {
-			c.getAssets({collection: address}).then((result) => {
-				setAssets(result.result);
+			c.getAssets({user: address}).then((result) => {
+				if (result)
+					setAssets(result.result);
 			});
-		})
-	};
+		});
+	}
 
 
 	const chunk = (arr, chunkSize) => {
@@ -51,12 +54,12 @@ const Collection = () => {
 			<div className="breadcrumb">
 				<Breadcrumb
 					routeSegments={[
-						{name: 'Collections', path: '/imx/collections/'},
+						{name: 'Inventory', path: '/imx/inventory/'},
 						{name: address, path: address},
 					]}
 				/>
 			</div>
-			<Box><h3>Collection Tokens</h3></Box>
+			<Box><h3>User Tokens</h3></Box>
 			{assets ? chunk(assets, 3)
 				.map((chunk, index) => {
 					const token1 = chunk[0];
@@ -75,4 +78,4 @@ const Collection = () => {
 	)
 }
 
-export default Collection
+export default UserCollection
